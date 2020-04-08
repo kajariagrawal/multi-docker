@@ -17,9 +17,9 @@ after success:
 #login to docker cli
     #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker login -u “$DOCKER_ID” -p “$DOCKER_PASSWORD” docker.io
-
+    - docker tag kajari/multi-client $DOCKER_ID/kajari/multi-client:$TRAVIS_BUILD_NUMBER
     #take these images and push to docker hub
-    - docker push kajari/multi-client
-    - docker push kajari/multi-nginx
-    - docker push kajari/multi-server
-    - docker push kajari/multi-worker
+    - docker push $DOCKER_ID/kajari/multi-client:$TRAVIS_BUILD_NUMBER
+   # - docker push kajari/multi-nginx
+    #- docker push kajari/multi-server
+    #- docker push kajari/multi-worker
