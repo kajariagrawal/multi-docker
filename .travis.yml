@@ -9,17 +9,16 @@ script:
     - docker run -e CI=true kajari/react-test npm test 
 
 after success: 
-    - docker build -t kajari/multi-client ./client
-    - docker build -t kajari/multi-nginx ./nginx
-    - docker build -t kajari/multi-server ./server
-    - docker build -t kajari/multi-worker ./worker
+    - docker build -t kajariagrawal/multi-client ./client #the tag has to be identical to the docker id for pushing successfully
+    - docker build -t kajariagrawal/multi-nginx ./nginx
+    - docker build -t kajariagrawal/multi-server ./server
+    - docker build -t kajariagrawal/multi-worker ./worker
 
 #login to docker cli
-    #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin this is another method
     - docker login -u “$DOCKER_ID” -p “$DOCKER_PASSWORD” docker.io
-    - docker tag kajari/multi-client $DOCKER_ID/kajari/multi-client:$TRAVIS_BUILD_NUMBER
     #take these images and push to docker hub
-    - docker push $DOCKER_ID/kajari/multi-client:$TRAVIS_BUILD_NUMBER
-   # - docker push kajari/multi-nginx
-    #- docker push kajari/multi-server
-    #- docker push kajari/multi-worker
+    - docker push kajariagrawal/multi-client
+    - docker push kajariagrawal/multi-nginx
+    - docker push kajariagrawal/multi-server
+    - docker push kajariagrawal/multi-worker
